@@ -1,13 +1,16 @@
 import { Toaster } from "sonner";
 import AddNewButtonBox from "./AddNewButtonBox";
-import Card from "./Card";
 import MenuNav from "./MenuNav";
+import useFetchContent from "../hooks/useFetchContent";
+import Card from "./Card";
 
 interface MainMenuType {
   fn: () => void;
 }
 
 const MainMenu = ({ fn }: MainMenuType) => {
+  const { data } = useFetchContent();
+
   return (
     <div className="pl-4">
       <Toaster
@@ -27,26 +30,14 @@ const MainMenu = ({ fn }: MainMenuType) => {
       <MenuNav />
       <div className="flex gap-4 flex-wrap">
         <AddNewButtonBox fn={fn} />
-        <Card
-          type="twitter"
-          title="Node Js Tutorial"
-          link="https://x.com/yasirafzalpak/status/1948119268186537998"
-        />
-        <Card
-          type="twitter"
-          title="Node Js Tutorial"
-          link="https://x.com/yasirafzalpak/status/1948119268186537998"
-        />
-        <Card
-          type="twitter"
-          title="Node Js Tutorial"
-          link="https://x.com/yasirafzalpak/status/1948119268186537998"
-        />
-        <Card
-          type="twitter"
-          title="Node Js Tutorial"
-          link="https://x.com/yasirafzalpak/status/1948119268186537998"
-        />
+        {data.map((item, index) => (
+          <Card
+            key={index}
+            type={item.type === "twitter" ? "twitter" : "youtube"}
+            link={item.link}
+            title={item.title}
+          />
+        ))}
       </div>
     </div>
   );

@@ -37,7 +37,7 @@ const SignInPage = () => {
       );
       toast.success("Sign In Successfully.");
       localStorage.setItem("token", response.data.token);
-      navigate("/dashboardls");
+      navigate("/dashboard");
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
         toast.error(error.response.data.message);
